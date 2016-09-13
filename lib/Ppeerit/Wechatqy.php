@@ -55,11 +55,10 @@ class Wechatqy extends Auth
 	    return $this->api('agent/list', '', 'GET');
 	}
 
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//------部门管理-开始--------------------------------------
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//------部门管理-开始-----------------------------------------------------------------------------------
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	/**
 	 * 创建部门
 	 * @param  string  $name     [部门名称]
@@ -68,7 +67,7 @@ class Wechatqy extends Auth
 	 * @param  string  $id       [部门id]
 	 * @return [type]            [description]
 	 */
-	public function departmentCreate($name = '', $parentid = 1, $order = '', $id = '')
+	public function departmentCreate($name, $parentid, $order = '', $id = '')
 	{
 		$param = [
 					'name'     =>      $name,
@@ -79,7 +78,35 @@ class Wechatqy extends Auth
 	    return $this->api('department/create', $param);
 	}
 
+	/**
+	 * 更新部门
+	 * @param  [type] $id       [部门id]
+	 * @param  string $name     [部门名称]
+	 * @param  string $parentid [父部门id 根部门id为1]
+	 * @param  string $order    [在父部门中的次序值]
+	 * @return [type]           [description]
+	 */
+	public function departmentUpdate($id, $name = '', $parentid = '', $order = '')
+	{
+		$param = [
+					'id'       =>      $id,
+					'name'     =>      $name,
+					'parentid' =>      $parentid,
+					'order'    =>      $order,
+	             ];
+	    return $this->api('department/update', $param);
+	}
 
+	/**
+	 * 删除部门
+	 * @param  [type] $id [部门id]
+	 * @return [type]     [description]
+	 */
+	public function departmentDelete($id)
+	{
+	    $param = ['id' => $id];
+	    return $this->api('department/delete', '', 'GET', $param);
+	}
 
 	/**
 	 * 获取部门列表
@@ -91,15 +118,9 @@ class Wechatqy extends Auth
 	    $param = ['id' => $id];
 	    return $this->api('department/list', '', 'GET', $param);
 	}
-
-
-
-
-
-
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//------部门管理-结束--------------------------------------
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//------部门管理-结束-----------------------------------------------------------------------------------
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 
 
