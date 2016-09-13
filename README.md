@@ -5,8 +5,9 @@
 
 ## 安装
 使用命令<br>
+```Bash
 composer require ppeerit/wechatqy
-
+```
 ## 使用
 ###加载命名空间
 ```php
