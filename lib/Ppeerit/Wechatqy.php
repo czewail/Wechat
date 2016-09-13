@@ -178,6 +178,7 @@ class Wechatqy extends Auth
 	 * @param  string $avatar_mediaid [成员头像的mediaid，通过多媒体接口上传图片获得的mediaid]
 	 * @param  array  $extattr        [扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值]
 	 * @return [type]                 [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function userUpdate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = [])
 	{
@@ -194,6 +195,18 @@ class Wechatqy extends Auth
 					'extattr'        =>      $extattr,
 	             ];
 	    return $this->api('user/update', $param);
+	}
+
+	/**
+	 * 删除成员
+	 * @param  [type] $userid [成员UserID。对应管理端的帐号]
+	 * @return [type]         [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function userDelete($userid)
+	{
+		$param = ['userid'=>$userid];
+	    return $this->api('user/delete', '', 'GET', $param);
 	}
 
 
