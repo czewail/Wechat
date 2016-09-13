@@ -1,7 +1,7 @@
 <?php 
 /**
  * 微信企业号SDK
- * @author 陈泽韦 <chenzewei@nbdeli.com>
+ * @author 陈泽韦 <549226266@qq.com>
  */
 
 namespace Ppeerit;
@@ -26,15 +26,16 @@ class Wechatqy extends Auth
 	 * @param  [type] $redirect_uri [description]
 	 * @param  string $state        [description]
 	 * @return [type]               [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function authorize($redirect_uri, $state = '')
 	{
 		$param = array(
-	                'appid' => $this->CorpID,
-	                'redirect_uri'	=>	$redirect_uri,
-	                'response_type'	=>	'code',
-	                'scope'	=>	'snsapi_base',
-	                'state'	=>	$state,
+					'appid'         =>  $this->CorpID,
+					'redirect_uri'  =>	$redirect_uri,
+					'response_type' =>	'code',
+					'scope'         =>	'snsapi_base',
+					'state'         =>	$state,
 	            );
 		$ship = '#wechat_redirect';
         $url  = "{$this->authURL}/authorize";
@@ -49,6 +50,7 @@ class Wechatqy extends Auth
 	/**
 	 * 返回管理组内应用的id及名称、头像等信息
 	 * @return [type] [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function agentList()
 	{
@@ -66,6 +68,7 @@ class Wechatqy extends Auth
 	 * @param  string  $order    [在父部门中的次序值]
 	 * @param  string  $id       [部门id]
 	 * @return [type]            [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function departmentCreate($name, $parentid, $order = '', $id = '')
 	{
@@ -85,6 +88,7 @@ class Wechatqy extends Auth
 	 * @param  string $parentid [父部门id 根部门id为1]
 	 * @param  string $order    [在父部门中的次序值]
 	 * @return [type]           [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function departmentUpdate($id, $name = '', $parentid = '', $order = '')
 	{
@@ -101,6 +105,7 @@ class Wechatqy extends Auth
 	 * 删除部门
 	 * @param  [type] $id [部门id]
 	 * @return [type]     [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function departmentDelete($id)
 	{
@@ -112,6 +117,7 @@ class Wechatqy extends Auth
 	 * 获取部门列表
 	 * @param  string $id [部门id。获取指定部门及其下的子部门]
 	 * @return [type]     [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function departmentList($id = '')
 	{
@@ -124,8 +130,40 @@ class Wechatqy extends Auth
 	
 
 
-
-
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//------管理成员-开始-----------------------------------------------------------------------------------
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	/**
+	 * 创建用户
+	 * @param  [type] $userid         [成员UserID，企业内必须唯一，不区分大小写，长度为1~64个字节]
+	 * @param  [type] $name           [成员名称。长度为1~64个字节]
+	 * @param  array  $department     [成员所属部门id列表,不超过20个]
+	 * @param  string $position       [职位信息。长度为0~64个字节]
+	 * @param  string $mobile         [手机号码。企业内必须唯一，mobile/weixinid/email三者不能同时为空]
+	 * @param  string $gender         [性别。1表示男性，2表示女性]
+	 * @param  string $email          [	邮箱。长度为0~64个字节。企业内必须唯一]
+	 * @param  string $weixinid       [微信号。企业内必须唯一。（注意：是微信号，不是微信的名字）]
+	 * @param  string $avatar_mediaid [	成员头像的mediaid，通过多媒体接口上传图片获得的mediaid]
+	 * @param  array  $extattr        [扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值]
+	 * @return [type]                 [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function userCreate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = [])
+	{
+		$param = [
+					'userid'         =>      $userid,
+					'name'           =>      $name,
+					'department'     =>      $department,
+					'position'       =>      $position,
+					'mobile'         =>      $mobile,
+					'gender'         =>      $gender,
+					'email'          =>      $email,
+					'weixinid'       =>      $weixinid,
+					'avatar_mediaid' =>      $avatar_mediaid,
+					'extattr'        =>      $extattr,
+	             ];
+	    return $this->api('user/create', $param);
+	}
 	/**
 	 * 获取指定部门成员列表
 	 * @param  integer $department_id [部门id]
