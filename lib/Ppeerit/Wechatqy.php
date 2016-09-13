@@ -58,6 +58,29 @@ class Wechatqy extends Auth
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//------部门管理-开始--------------------------------------
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+	/**
+	 * 创建部门
+	 * @param  string  $name     [部门名称]
+	 * @param  integer $parentid [父部门id 根部门id为1]
+	 * @param  string  $order    [在父部门中的次序值]
+	 * @param  string  $id       [部门id]
+	 * @return [type]            [description]
+	 */
+	public function departmentCreate($name = '', $parentid = 1, $order = '', $id = '')
+	{
+		$param = [
+					'name'     =>      $name,
+					'parentid' =>      $parentid,
+					'order'    =>      $order,
+					'id'       =>      $id,
+	             ];
+	    return $this->api('department/create', $param);
+	}
+
+
+
 	/**
 	 * 获取部门列表
 	 * @param  string $id [部门id。获取指定部门及其下的子部门]
@@ -65,15 +88,23 @@ class Wechatqy extends Auth
 	 */
 	public function departmentList($id = '')
 	{
-	    $param = array(
-	                'id' => $id,
-	            );
+	    $param = ['id' => $id];
 	    return $this->api('department/list', '', 'GET', $param);
 	}
+
+
+
+
+
+
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//------部门管理-结束--------------------------------------
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
+
+
+
+
 	/**
 	 * 获取指定部门成员列表
 	 * @param  integer $department_id [部门id]

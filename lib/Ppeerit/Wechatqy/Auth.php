@@ -193,6 +193,7 @@ class Auth
      * @param  array  $param  GET参数数组
      * @param  array  $data   POST的数据，GET请求时该参数无效
      * @param  string $method 请求方法GET/POST
+     * @param  string $ship   #参数
      * @return array          响应数据
      */
     protected static function http($url, $param, $data = '', $method = 'GET', $ship = ''){
@@ -206,8 +207,6 @@ class Auth
 
         /* 根据请求类型设置特定参数 */
         $opts[CURLOPT_URL] = $url . '?' . http_build_query($param) . $ship;
-
-        //echo $opts[CURLOPT_URL];
 
         if(strtoupper($method) == 'POST'){
             $opts[CURLOPT_POST] = 1;
