@@ -68,7 +68,20 @@ $Identity：公众号标识，自定义，用于区分多个公众号调用缓�
 		```
 		* 管理标签
 		```php
-		
+		// 创建标签
+		$wechatqy->tagCreate($tagname, $tagid = '');
+
+		// 更新标签名字
+		$wechatqy->tagUpdate($tagid, $tagname);
+
+		// 删除标签
+		$wechatqy->tagDelete($tagid);
+
+		// 获取标签成员
+		$wechatqy->tagGet($tagid);
+
+		// 增加标签成员
+		$wechatqy->tagAddtagusers($tagid, array$userlist = [], array$partylist = []);
 		```
 * 能力接口
 

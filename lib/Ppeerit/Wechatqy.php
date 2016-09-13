@@ -288,6 +288,7 @@ class Wechatqy extends Auth
 	 *                                 2获取禁用成员列表,
 	 *                                 4获取未关注成员列表。]
 	 * @return [type]                 [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function userList($department_id = 1, $fetch_child = 0, $status = 0)
 	{
@@ -309,8 +310,87 @@ class Wechatqy extends Auth
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	/**
+	 * 创建标签
+	 * @param  [type] $tagname [标签名称，长度限制为32个字（汉字或英文字母），标签名不可与其他标签重名。]
+	 * @param  string $tagid   [标签id，整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。]
+	 * @return [type]          [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function tagCreate($tagname, $tagid = '')
+	{
+		$param = [
+					'tagname' =>      $tagname,
+					'tagid'   =>      $tagid,
+	            ];
+	    return $this->api('tag/create', $param);
+	}
+
+	/**
+	 * 更新标签名字
+	 * @param  [type] $tagid   [标签ID]
+	 * @param  [type] $tagname [标签名称，长度限制为32个字（汉字或英文字母），标签不可与其他标签重名。]
+	 * @return [type]          [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function tagUpdate($tagid, $tagname)
+	{
+		$param = [
+					'tagid'   =>      $tagid,
+					'tagname' =>      $tagname,
+	            ];
+	    return $this->api('tag/update', $param);
+	}
+
+	/**
+	 * 删除标签
+	 * @param  [type] $tagid [标签ID]
+	 * @return [type]        [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function tagDelete($tagid)
+	{
+		$param = [
+	                'tagid' =>	$tagid
+	            ];
+	    return $this->api('tag/delete', '', 'GET', $param);
+	}
+
+	/**
+	 * 获取标签成员
+	 * @param  [type] $tagid [标签ID]
+	 * @return [type]        [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function tagGet($tagid)
+	{
+		$param = [
+	                'tagid' =>	$tagid
+	            ];
+	    return $this->api('tag/get', '', 'GET', $param);
+	}
+
+	/**
+	 * 增加标签成员
+	 * @param  [type] $tagid     [标签ID]
+	 * @param  array  $userlist  [企业成员ID列表，注意：userlist、partylist不能同时为空，单次请求长度不超过1000]
+	 * @param  array  $partylist [企业部门ID列表，注意：userlist、partylist不能同时为空，单次请求长度不超过100]
+	 * @return [type]            [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function tagAddtagusers($tagid, array$userlist = [], array$partylist = [])
+	{
+		$param = [
+					'tagid'     =>      $tagid,
+					'userlist'  =>      $userlist,
+					'partylist' =>      $partylist,
+	            ];
+	    return $this->api('tag/addtagusers', $param);
+	}
+
+	/**
 	 * [tagList 获取标签列表]
 	 * @return [type] [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function tagList()
 	{
