@@ -43,12 +43,15 @@ $Identity：公众号标识，自定义，用户区分多个公众号调用缓�
 		```
 		* 管理成员
 		```php
-		// 创建用户
+		// 创建成员
 		$wechatqy->userCreate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', 
+								$email = '', $weixinid = '', $avatar_mediaid = '', $extattr = []);
+		
+		// 更新成员
+		$wechatqy->userUpdate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', 
 								$email = '', $weixinid = '', $avatar_mediaid = '', $extattr = []);
 		```
 * 能力接口
-
 
 待完善<br>
 
