@@ -30,7 +30,7 @@ $Identity：公众号标识，自定义，用户区分多个公众号调用缓�
 		* 管理部门
 		```php
 		// 创建部门
-		$wechatqy->departmentCreate($name, $parentid, $order = '', $id = '');
+		$wechatqy->departmentCreate($name, $parentid = 1, $order = '', $id = '');
 
 		// 更新部门
 		$wechatqy->departmentUpdate($id, $name = '', $parentid = '', $order = '');
@@ -44,15 +44,27 @@ $Identity：公众号标识，自定义，用户区分多个公众号调用缓�
 		* 管理成员
 		```php
 		// 创建成员
-		$wechatqy->userCreate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', 
+		$wechatqy->userCreate($userid, $name, array$department, $position = '', $mobile = '', $gender = '', 
 								$email = '', $weixinid = '', $avatar_mediaid = '', $extattr = []);
 		
 		// 更新成员
-		$wechatqy->userUpdate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', 
+		$wechatqy->userUpdate($userid, $name, array$department, $position = '', $mobile = '', $gender = '', 
 								$email = '', $weixinid = '', $avatar_mediaid = '', $extattr = []);
 		
 		// 删除成员
 		$wechatqy->userDelete($userid);
+
+		// 批量删除成员
+		$wechatqy->userBatchdelete(array$useridlist);
+
+		// 获取成员
+		$wechatqy->userGet($userid);
+
+		// 获取部门成员
+		$wechatqy->userSimplelist($department_id = 1, $fetch_child = 0, $status = 0);
+
+		// 获取部门成员(详细)
+		$wechatqy->userList($department_id = 1, $fetch_child = 0, $status = 0);
 		```
 * 能力接口
 

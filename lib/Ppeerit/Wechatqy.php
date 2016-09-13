@@ -30,13 +30,13 @@ class Wechatqy extends Auth
 	 */
 	public function authorize($redirect_uri, $state = '')
 	{
-		$param = array(
+		$param = [
 					'appid'         =>  $this->CorpID,
 					'redirect_uri'  =>	$redirect_uri,
 					'response_type' =>	'code',
 					'scope'         =>	'snsapi_base',
 					'state'         =>	$state,
-	            );
+	            ];
 		$ship = '#wechat_redirect';
         $url  = "{$this->authURL}/authorize";
         // array_walk_recursive($param, function(&$value){
@@ -70,14 +70,14 @@ class Wechatqy extends Auth
 	 * @return [type]            [description]
 	 * @author 陈泽韦 <549226266@qq.com>
 	 */
-	public function departmentCreate($name, $parentid, $order = '', $id = '')
+	public function departmentCreate($name, $parentid = 1, $order = '', $id = '')
 	{
 		$param = [
 					'name'     =>      $name,
 					'parentid' =>      $parentid,
 					'order'    =>      $order,
 					'id'       =>      $id,
-	             ];
+	            ];
 	    return $this->api('department/create', $param);
 	}
 
@@ -97,7 +97,7 @@ class Wechatqy extends Auth
 					'name'     =>      $name,
 					'parentid' =>      $parentid,
 					'order'    =>      $order,
-	             ];
+	            ];
 	    return $this->api('department/update', $param);
 	}
 
@@ -109,7 +109,9 @@ class Wechatqy extends Auth
 	 */
 	public function departmentDelete($id)
 	{
-	    $param = ['id' => $id];
+	    $param = [
+	    			'id' => $id
+	    		];
 	    return $this->api('department/delete', '', 'GET', $param);
 	}
 
@@ -121,7 +123,9 @@ class Wechatqy extends Auth
 	 */
 	public function departmentList($id = '')
 	{
-	    $param = ['id' => $id];
+	    $param = [
+	    			'id' => $id
+	    		];
 	    return $this->api('department/list', '', 'GET', $param);
 	}
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -148,7 +152,7 @@ class Wechatqy extends Auth
 	 * @return [type]                 [description]
 	 * @author 陈泽韦 <549226266@qq.com>
 	 */
-	public function userCreate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = [])
+	public function userCreate($userid, $name, array$department, $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = [])
 	{
 		$param = [
 					'userid'         =>      $userid,
@@ -161,7 +165,7 @@ class Wechatqy extends Auth
 					'weixinid'       =>      $weixinid,
 					'avatar_mediaid' =>      $avatar_mediaid,
 					'extattr'        =>      $extattr,
-	             ];
+	            ];
 	    return $this->api('user/create', $param);
 	}
 
@@ -180,7 +184,7 @@ class Wechatqy extends Auth
 	 * @return [type]                 [description]
 	 * @author 陈泽韦 <549226266@qq.com>
 	 */
-	public function userUpdate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = [])
+	public function userUpdate($userid, $name, array$department, $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = [])
 	{
 		$param = [
 					'userid'         =>      $userid,
@@ -193,7 +197,7 @@ class Wechatqy extends Auth
 					'weixinid'       =>      $weixinid,
 					'avatar_mediaid' =>      $avatar_mediaid,
 					'extattr'        =>      $extattr,
-	             ];
+	            ];
 	    return $this->api('user/update', $param);
 	}
 
@@ -205,13 +209,42 @@ class Wechatqy extends Auth
 	 */
 	public function userDelete($userid)
 	{
-		$param = ['userid'=>$userid];
+		$param = [
+					'userid'=>$userid
+				];
 	    return $this->api('user/delete', '', 'GET', $param);
 	}
 
+	/**
+	 * 批量删除成员
+	 * @param  array  $useridlist [成员UserID列表。对应管理端的帐号。（最多支持200个）]
+	 * @return [type]             [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function userBatchdelete(array$useridlist)
+	{
+		$param = [
+					'useridlist'	=>	$useridlist
+	            ];
+	    return $this->api('user/batchdelete', $param);
+	}
+	
+	/**
+	 * 获取成员
+	 * @param  [type] $userid [成员UserID。对应管理端的帐号]
+	 * @return [type]         [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function userGet($userid)
+	{
+		$param = [
+					'userid'=>$userid
+				];
+	    return $this->api('user/get', '', 'GET', $param);
+	}
 
 	/**
-	 * 获取指定部门成员列表
+	 * 获取部门成员
 	 * @param  integer $department_id [部门id]
 	 * @param  integer $fetch_child   [1/0：是否递归获取子部门下面的成员]
 	 * @param  integer $status        [0获取全部成员,
@@ -219,18 +252,20 @@ class Wechatqy extends Auth
 	 *                                 2获取禁用成员列表,
 	 *                                 4获取未关注成员列表。]
 	 * @return [type]                 [description]
+	 * @author 陈泽韦 <549226266@qq.com>
 	 */
 	public function userSimplelist($department_id = 1, $fetch_child = 0, $status = 0)
 	{
-		$param = array(
+		$param = [
 	                'department_id' =>      $department_id,
 	                'fetch_child'   =>      $fetch_child,
 	                'status'        =>      $status,
-	            );
+	            ];
 	    return $this->api('user/simplelist', '', 'GET', $param);
 	}
+
 	/**
-	 * 获取指定部门成员列表(详细)
+	 * 获取部门成员(详细)
 	 * @param  integer $department_id [部门id]
 	 * @param  integer $fetch_child   [1/0：是否递归获取子部门下面的成员]
 	 * @param  integer $status        [0获取全部成员,
@@ -241,13 +276,17 @@ class Wechatqy extends Auth
 	 */
 	public function userList($department_id = 1, $fetch_child = 0, $status = 0)
 	{
-	    $param = array(
+	    $param = [
 	                'department_id' =>      $department_id,
 	                'fetch_child'   =>      $fetch_child,
 	                'status'        =>      $status,
-	            );
+	            ];
 	    return $this->api('user/list', '', 'GET', $param);
 	}
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//------成员管理-结束-----------------------------------------------------------------------------------
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//------标签管理-开始--------------------------------------
