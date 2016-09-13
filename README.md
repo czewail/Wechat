@@ -9,9 +9,13 @@ composer require ppeerit/wechatqy
 
 ## 使用
 ####加载命名空间
-use Ppeerit\Wechatqy;<br>
+```php
+use Ppeerit\Wechatqy;
+```
 ####实例化对象
-$wechatqy = new Wechatqy($CorpID, $Secret, $Identity = '');<br>
+```php
+$wechatqy = new Wechatqy($CorpID, $Secret, $Identity = '');
+```
 ####参数介绍
 $CorpID：企业号唯一ID<br>
 $Secret：企业号管理组凭证密钥<br>
