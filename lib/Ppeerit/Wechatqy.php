@@ -388,7 +388,25 @@ class Wechatqy extends Auth
 	}
 
 	/**
-	 * [tagList 获取标签列表]
+	 * 删除标签成员
+	 * @param  [type] $tagid     [标签ID]
+	 * @param  array  $userlist  [企业成员ID列表，注意：userlist、partylist不能同时为空，单次请求长度不超过1000]
+	 * @param  array  $partylist [企业部门ID列表，注意：userlist、partylist不能同时为空，单次请求长度不超过100]
+	 * @return [type]            [description]
+	 * @author 陈泽韦 <549226266@qq.com>
+	 */
+	public function tagDeltagusers($tagid, array$userlist = [], array$partylist = [])
+	{
+		$param = [
+					'tagid'     =>      $tagid,
+					'userlist'  =>      $userlist,
+					'partylist' =>      $partylist,
+	            ];
+	    return $this->api('tag/deltagusers', $param);
+	}
+
+	/**
+	 * 获取标签列表
 	 * @return [type] [description]
 	 * @author 陈泽韦 <549226266@qq.com>
 	 */
@@ -396,9 +414,11 @@ class Wechatqy extends Auth
 	{
 		return $this->api('tag/list', '', 'GET');
 	}
+
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//------标签管理-结束----------------------------------------------------------------------------------
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
 
 	/**
 	 * 获取素材列表
