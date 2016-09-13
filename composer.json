@@ -1,0 +1,20 @@
+{
+    "name": "ppeerit/wechatqy",
+    "type": "library",
+    "description": "Library for wechat platform",
+    "keywords": ["wechat"],
+    "homepage": "https://github.com/ppeerit/Wechatqy",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Chen Ze Wei",
+            "email": "549226266@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": {"Ppeerit\\Wechatqy": "lib/"}
+    }
+}
