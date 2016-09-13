@@ -30,7 +30,16 @@ $Identity：公众号标识，自定义，用户区分多个公众号调用缓�
 		* 部门管理
 		```php
 		// 创建部门
-		$wechatqy->departmentCreate($name = '', $parentid = 1, $order = '', $id = '');
+		$wechatqy->departmentCreate($name, $parentid, $order = '', $id = '');
+
+		// 更新部门
+		$wechatqy->departmentUpdate($id, $name = '', $parentid = '', $order = '');
+
+		// 删除部门
+		$wechatqy->departmentDelete($id);
+
+		//获取部门列表
+		$wechatqy->departmentList($id = '');
 		```
 * 能力接口
 
