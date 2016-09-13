@@ -44,7 +44,8 @@ $Identity：公众号标识，自定义，用户区分多个公众号调用缓�
 		* 管理成员
 		```php
 		// 创建用户
-		$wechatqy->userCreate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = []);
+		$wechatqy->userCreate($userid, $name, $department = [], $position = '', $mobile = '', $gender = '', 
+								$email = '', $weixinid = '', $avatar_mediaid = '', $extattr = []);
 		```
 * 能力接口
 
