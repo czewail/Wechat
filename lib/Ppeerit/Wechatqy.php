@@ -1,15 +1,31 @@
 <?php 
 /**
- * 微信企业号SDK
- * @author 陈泽韦 <549226266@qq.com>
+ * Copyright (c) 2016-2021, Chen Ze Wei <549226266@qq.com>
+ * All rights reserved.
+ *
+ *THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ *FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ *COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ *INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ *CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ *LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ *ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *POSSIBILITY OF SUCH DAMAGE.
  */
 
 namespace Ppeerit;
 use Ppeerit\Wechatqy\Auth;
 
 /**
-* 
-*/
+ * Library for company wechat platform
+ *
+ * @author  Chen Ze Wei <549226266@qq.com>
+ * @license http://www.apache.org/licenses/LICENSE-2.0 APACHE-2.0 License
+ */
 class Wechatqy extends Auth
 {
 	/**
@@ -19,7 +35,6 @@ class Wechatqy extends Auth
 	{
 		parent::__construct($CorpID, $Secret, $Identity = '');
 	}
-
 
 	/**
 	 * 企业获取code
@@ -288,9 +303,10 @@ class Wechatqy extends Auth
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//------标签管理-开始--------------------------------------
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//------标签管理-开始-----------------------------------------------------------------------------------
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	/**
 	 * [tagList 获取标签列表]
@@ -300,9 +316,9 @@ class Wechatqy extends Auth
 	{
 		return $this->api('tag/list', '', 'GET');
 	}
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//------标签管理-结束--------------------------------------
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//------标签管理-结束----------------------------------------------------------------------------------
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	/**
 	 * 获取素材列表
