@@ -118,11 +118,36 @@ $Identity：公众号标识，自定义，用于区分多个公众号调用缓�
 		* 上传其他类型永久素材
 		```php
 		/**
+		 * 上传其他类型永久素材
 		 * @param  $type  		媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)
 		 * @param  $media 		form-data中媒体文件标识，有filename、filelength、content-type等信息
 		 * @return media_id     素材资源标识ID。最大长度为256字节
 		 */
 		$wechatqy->materialAddMaterial($type, $media);
+		
+		/**
+		 * 上传永久图文素材
+		 * @param  array  $articles 	文章列表
+		 * @return media_id          素材资源标识ID。最大长度为256字节
+		 *
+		 * articles格式
+		 * [
+		 * 		[
+		 * 			'title'              =>	'标题1',//必填
+		 * 			'thumb_media_id'     =>	'素材接口返回的id',//必填
+		 * 			'author'             =>	'作者',
+		 * 			'content_source_url' =>	'原文链接',
+		 * 			'content'            =>	'内容'//必填,
+		 * 			'digest'             =>	'描述',
+		 * 			'show_cover_pic'     =>	'是否显示封面 0或1'
+		 * 		],
+		 * 		[
+		 * 			//同上
+		 * 		],
+		 * 		//更多....
+		 * ]
+		 */
+		$wechatqy->materialAddMpnews(array$articles);
 		```
 		
 * 能力接口
