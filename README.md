@@ -152,17 +152,43 @@ $Identity：公众号标识，自定义，用于区分多个公众号调用缓�
 		* 获取永久素材
 		```php
 		/**
-		 * @param  string $media_id 素材资源标识ID
-		 * @return json/http        图文：正确时返回json,其他类型：返回结果http下载的头部信息
+		 * @param   $media_id 	素材资源标识ID
+		 * @return        		图文：正确时返回json,其他类型：返回结果http下载的头部信息
 		 */
 		$wechatqy->materialGet($media_id);
 		```
 		* 删除永久素材
 		```php
 		/**
-		 * @param  [type] $media_id 	素材资源标识ID
+		 * @param   $media_id 	素材资源标识ID
 		 */
 		$wechatqy->materialDel($media_id);
+		```
+		* 
+		```php
+		/**
+		 * @param  	$media_id 	素材资源标识ID
+		 * @param  	$articles 	文章列表
+		 * @author 	陈泽韦 		<549226266@qq.com>
+		 *
+		 * articles格式
+		 * [
+		 * 		[
+		 * 			'title'              =>	'标题1',//必填
+		 * 			'thumb_media_id'     =>	'素材接口返回的id',//必填
+		 * 			'author'             =>	'作者',
+		 * 			'content_source_url' =>	'原文链接',
+		 * 			'content'            =>	'内容'//必填,
+		 * 			'digest'             =>	'描述',
+		 * 			'show_cover_pic'     =>	'是否显示封面 0或1'
+		 * 		],
+		 * 		[
+		 * 			//同上
+		 * 		],
+		 * 		//更多....
+		 * ]
+		 */
+		wechatqy->materialUpdateMpnews($media_id, array$articles);
 		```
 * 能力接口
 
