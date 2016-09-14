@@ -93,9 +93,8 @@ $Identity：公众号标识，自定义，用于区分多个公众号调用缓�
 		* 上传临时素材文件
 		```php
 		/**
-		 * 上传临时素材文件
-		 * @param  [type] $type  [媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)]
-		 * @param  [type] $media [form-data中媒体文件标识，有filename、filelength、content-type等信息]
+		 * @param  $type  媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)
+		 * @param  $media form-data中媒体文件标识，有filename、filelength、content-type等信息
 		 *
 		 * 上传的媒体文件限制
 		 * 所有文件size必须大于5个字节
