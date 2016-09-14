@@ -188,7 +188,20 @@ $Identity：公众号标识，自定义，用于区分多个公众号调用缓�
 		 * 		//更多....
 		 * ]
 		 */
-		wechatqy->materialUpdateMpnews($media_id, array$articles);
+		$wechatqy->materialUpdateMpnews($media_id, array$articles);
+		```
+		* 获取素材总数
+		```php
+		$wechatqy->materialGetCount();
+		```
+		* 获取素材列表
+		```php
+		/**
+		 * @param   $type    素材类型，可以为图文(mpnews)、图片（image）、音频（voice）、视频（video）、文件（file）
+		 * @param   $offset  从该类型素材的该偏移位置开始返回，0表示从第一个素材 返回
+		 * @param   $count   返回素材的数量，取值在1到50之间
+		 */
+		$wechatqy->materialBatchget($type = 'image', $offset = 0, $count = 10);
 		```
 * 能力接口
 
