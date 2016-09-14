@@ -113,6 +113,16 @@ $Identity：公众号标识，自定义，用于区分多个公众号调用缓�
 		 */
 		$wechatqy->mediaGet($media_id);
 		```
+		* 上传其他类型永久素材
+		```php
+		/**
+		 * @param  $type  		媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)
+		 * @param  $media 		form-data中媒体文件标识，有filename、filelength、content-type等信息
+		 * @return media_id     素材资源标识ID。最大长度为256字节
+		 */
+		$wechatqy->materialAddMaterial($type, $media);
+		```
+		
 * 能力接口
 
 待完善<br>
