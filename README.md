@@ -149,7 +149,21 @@ $Identity：公众号标识，自定义，用于区分多个公众号调用缓�
 		 */
 		$wechatqy->materialAddMpnews(array$articles);
 		```
-		
+		* 获取永久素材
+		```php
+		/**
+		 * @param  string $media_id 素材资源标识ID
+		 * @return json/http        图文：正确时返回json,其他类型：返回结果http下载的头部信息
+		 */
+		$wechatqy->materialGet($media_id);
+		```
+		* 删除永久素材
+		```php
+		/**
+		 * @param  [type] $media_id 	素材资源标识ID
+		 */
+		$wechatqy->materialDel($media_id);
+		```
 * 能力接口
 
 待完善<br>
