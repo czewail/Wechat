@@ -1,5 +1,7 @@
 # Wechatqy
 微信企业号开发SDK for thinkphp 5.0<br>
+支持多公众号管理<br>
+自动管理access_token<br>
 暂不支持其他框架 因为使用了tp5的缓存机制<br>
 后期再进行修改
 
