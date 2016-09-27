@@ -8,16 +8,16 @@
 ## 安装
 使用命令<br>
 ```Bash
-composer require ppeerit/wechatqy
+composer require ppeerit/wechat
 ```
 ## 使用
 ###加载命名空间
 ```php
-use Ppeerit\Wechatqy;
+use Ppeerit\Wechat\WechatQy;
 ```
 ###实例化对象
 ```php
-$wechatqy = new Wechatqy($CorpID, $Secret, $Identity = '');
+$wechatqy = new WechatQy($CorpID, $Secret, $Identity = '');
 ```
 ###参数介绍
 $CorpID：企业号唯一ID<br>
