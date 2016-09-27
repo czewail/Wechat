@@ -4,10 +4,10 @@
  * @author 陈泽韦 <chenzewei@nbdeli.com>
  */
 
-namespace Ppeerit\Wechatqy;
+namespace Ppeerit\Wechat\Factory;
 use think\Cache;
 
-class Auth
+class DriverQy
 {
     /**
      * 公众号标识
