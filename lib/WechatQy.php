@@ -45,25 +45,20 @@ class WechatQy extends DriverQy
 	 */
 	public function authorize($redirect_uri, $state = '')
 	{
+
+        $redirect_uri_code = urlencode($redirect_uri);
+        $url = "{$this->authURL}/authorize?appid={$this->CorpID}&redirect_uri={$redirect_uri_code}&response_type=code&scope=snsapi_base&state={$state}#wechat_redirect";
+
+
+        return $url;
+	}
+
+	public function getuserinfo($code)
+	{
 		$param = [
-					'appid'         =>  $this->CorpID,
-					'redirect_uri'  =>	$redirect_uri,
-					'response_type' =>	'code',
-					'scope'         =>	'snsapi_base',
-					'state'         =>	$state,
-	            ];
-		$ship = '#wechat_redirect';
-        $url  = "{$this->authURL}/authorize";
-
-        
-
-
-        // array_walk_recursive($param, function(&$value){
-        //     $value = urlencode($value);
-        // });
-        // $param = urldecode(json_encode($param));
-        $data = self::http($url, $param, '', 'GET', $ship);
-        return json_decode($data, true);
+			'code'	=>	$code
+		];
+		return $this->api('user/getuserinfo', '', 'GET', $param);
 	}
 
 	/**
