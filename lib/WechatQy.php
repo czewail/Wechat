@@ -54,6 +54,10 @@ class WechatQy extends DriverQy
 	            ];
 		$ship = '#wechat_redirect';
         $url  = "{$this->authURL}/authorize";
+
+        
+
+
         // array_walk_recursive($param, function(&$value){
         //     $value = urlencode($value);
         // });
