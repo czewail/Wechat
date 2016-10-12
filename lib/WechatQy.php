@@ -17,7 +17,7 @@
  *POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Ppeerit;
+namespace Ppeerit\WeChat;
 use Ppeerit\Wechat\Factory\DriverQy;
 
 /**
