@@ -3,12 +3,21 @@
  * 微信企业号SDK
  * @author 陈泽韦 <chenzewei@nbdeli.com>
  */
-
 namespace Ppeerit\Wechat\Factory;
+
 use think\Cache;
+use Ppeerit\Wechat\Exceptions\ParamErrorException;
+use Ppeerit\Wechat\Exceptions\AccessTokenInvalidException;
+use Ppeerit\Wechat\Exceptions\HttpInvalidException;
 
 class DriverQy
 {
+
+    /**
+     * 微信企业号api根路径
+     */
+    const API_PREFIX = 'https://qyapi.weixin.qq.com/cgi-bin/';
+
     /**
      * 公众号标识
      * 自定义，用户区分多个公众号调用缓存时的标识，不可重复，否则会导致多个公众号数据错乱
@@ -34,18 +43,6 @@ class DriverQy
      * @var string
      */
     protected $accessToken = '';
-
-    /**
-     * 微信企业号api根路径
-     * @var string
-     */
-    protected $apiURL = 'https://qyapi.weixin.qq.com/cgi-bin';
-
-    /**
-     * 微信企业号auth根路径
-     * @var string
-     */
-    protected $authURL = 'https://open.weixin.qq.com/connect/oauth2';
     
     /**
      * 构造方法，调用微信高级接口时实例化SDK
@@ -54,14 +51,16 @@ class DriverQy
      * @param [type] $Identity [公众号唯一标识--见成员变量]
      * @param [type] $token    [获取到的accesstoken]
      */
-    public function __construct($CorpID, $Secret, $Identity = '')
+    public function __construct( array$options = [] )
     {
         //没有传入标识号和密钥时抛出异常
-        if($CorpID && $Secret){
+        if($options['corpid'] && $options['secret']){
             //将唯一标识号赋值给类成员变量
-            $this->CorpID   =   $CorpID;
+            $this->CorpID   =   $options['corpid'];
             //将凭证密钥赋值给类成员变量
-            $this->Secret   =   $Secret;
+            $this->Secret   =   $options['secret'];
+            // 微信企业号标识
+            $Identity = $options['identity'] ? $options['identity'] : '';
             //从缓存中获取accesstoken
             $token = $this->getTokenCache($Identity);
             //如果缓存中不存在accesstoken
@@ -73,7 +72,7 @@ class DriverQy
             }
         } else {
             //抛出异常
-            throw new \Exception('缺少参数 CorpID 和 Secret!');
+            throw new ParamErrorException('缺少参数 CorpID 和 Secret!');
         }
     }
 
@@ -133,7 +132,7 @@ class DriverQy
             'corpsecret'    => $this->Secret
         );
         //组合token接口地址
-        $url = "{$this->apiURL}/gettoken";
+        $url = self::API_PREFIX . "gettoken";
         //通过http方法从接口获取token
         $token = self::http($url, $param);
         //将返回的接送、数据解码为数组
@@ -143,7 +142,7 @@ class DriverQy
             //返回的是错误信息
             if(isset($token['errcode'])){
                 //抛出异常，异常信息为返回的错误信息
-                throw new \Exception($token['errmsg']);
+                throw new AccessTokenInvalidException($token['errmsg']);
             } else {
                 //返回成功，将token赋值给成员变量
                 $this->accessToken = $token['access_token'];
@@ -152,7 +151,7 @@ class DriverQy
             }
         } else {
             //返回失败，抛出异常
-            throw new \Exception('获取微信access_token失败！');
+            throw new AccessTokenInvalidException('获取微信access_token失败！');
         }
     }
 
@@ -173,7 +172,7 @@ class DriverQy
             $params = array_merge($params, $param);
         }
 
-        $url  = "{$this->apiURL}/{$name}";
+        $url  = self::API_PREFIX . "{$name}";
         if($json && !empty($data)){
             //保护中文，微信api不支持中文转义的json结构
             array_walk_recursive($data, function(&$value){
@@ -228,7 +227,7 @@ class DriverQy
         curl_close($ch);
 
         //发生错误，抛出异常
-        if($error) throw new \Exception('请求发生错误：' . $error);
+        if($error) throw new HttpInvalidException('请求发生错误：' . $error);
 
         return  $data;
     }
