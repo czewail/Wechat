@@ -178,16 +178,6 @@ class Contact extends DriverQy
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	/**
 	 * 创建成员
-	 * @param  [type] $userid         [成员UserID，企业内必须唯一，不区分大小写，长度为1~64个字节]
-	 * @param  [type] $name           [成员名称。长度为1~64个字节]
-	 * @param  array  $department     [成员所属部门id列表,不超过20个]
-	 * @param  string $position       [职位信息。长度为0~64个字节]
-	 * @param  string $mobile         [手机号码。企业内必须唯一，mobile/weixinid/email三者不能同时为空]
-	 * @param  string $gender         [性别。1表示男性，2表示女性]
-	 * @param  string $email          [邮箱。长度为0~64个字节。企业内必须唯一]
-	 * @param  string $weixinid       [微信号。企业内必须唯一。（注意：是微信号，不是微信的名字）]
-	 * @param  string $avatar_mediaid [成员头像的mediaid，通过多媒体接口上传图片获得的mediaid]
-	 * @param  array  $extattr        [扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值]
 	 * @return [type]                 [description]
 	 * @author 陈泽韦 				  <549226266@qq.com>
 	 */
@@ -212,7 +202,7 @@ class Contact extends DriverQy
 	    	$param['extattr'] = $data['extattr'];
 	    }
 
-	    if ( !isset($data['mobile']) || !isset($data['email']) || !isset($data['weixinid']) ) {
+	    if ( !isset($data['mobile']) && !isset($data['email']) && !isset($data['weixinid']) ) {
 	    	//抛出异常
             throw new ContactParamInvalidException('mobile/weixinid/email三者不能同时为空');
 	    }
@@ -231,16 +221,6 @@ class Contact extends DriverQy
 
 	/**
 	 * 更新成员
-	 * @param  [type] $userid         [成员UserID，企业内必须唯一，不区分大小写，长度为1~64个字节]
-	 * @param  [type] $name           [成员名称。长度为1~64个字节]
-	 * @param  array  $department     [成员所属部门id列表,不超过20个]
-	 * @param  string $position       [职位信息。长度为0~64个字节]
-	 * @param  string $mobile         [手机号码。企业内必须唯一，mobile/weixinid/email三者不能同时为空]
-	 * @param  string $gender         [性别。1表示男性，2表示女性]
-	 * @param  string $email          [邮箱。长度为0~64个字节。企业内必须唯一]
-	 * @param  string $weixinid       [微信号。企业内必须唯一。（注意：是微信号，不是微信的名字）]
-	 * @param  string $avatar_mediaid [成员头像的mediaid，通过多媒体接口上传图片获得的mediaid]
-	 * @param  array  $extattr        [扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值]
 	 * @return [type]                 [description]
 	 * @author 陈泽韦 <549226266@qq.com>
 	 */
