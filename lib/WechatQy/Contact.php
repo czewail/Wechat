@@ -190,19 +190,20 @@ class Contact extends DriverQy
 	 * @return [type]                 [description]
 	 * @author 陈泽韦 				  <549226266@qq.com>
 	 */
-	public function userCreate( $userid, $name, array$department, $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = [] )
+	public function userCreate( array$data = [] )
 	{
+
 		$param = [
-					'userid'         =>      $userid,
-					'name'           =>      $name,
-					'department'     =>      $department,
-					'position'       =>      $position,
-					'mobile'         =>      $mobile,
-					'gender'         =>      $gender,
-					'email'          =>      $email,
-					'weixinid'       =>      $weixinid,
-					'avatar_mediaid' =>      $avatar_mediaid,
-					'extattr'        =>      $extattr,
+					'userid'         =>      $data['userid'],
+					'name'           =>      $data['name'],
+					'department'     =>      $data['department'],
+					'position'       =>      $data['position'],
+					'mobile'         =>      $data['mobile'],
+					'gender'         =>      $data['gender'],
+					'email'          =>      $data['email'],
+					'weixinid'       =>      $data['weixinid'],
+					'avatar_mediaid' =>      $data['avatar_mediaid'],
+					'extattr'        =>      $data['extattr'],
 	            ];
 	    return $this->api( self::CONTACT_USER_CREATE_URL, $param );
 	}
@@ -222,19 +223,19 @@ class Contact extends DriverQy
 	 * @return [type]                 [description]
 	 * @author 陈泽韦 <549226266@qq.com>
 	 */
-	public function userUpdate( $userid, $name, array$department, $position = '', $mobile = '', $gender = '', $email = '', $weixinid = '', $avatar_mediaid = '', $extattr = [] )
+	public function userUpdate( array$data = [] )
 	{
 		$param = [
-					'userid'         =>      $userid,
-					'name'           =>      $name,
-					'department'     =>      $department,
-					'position'       =>      $position,
-					'mobile'         =>      $mobile,
-					'gender'         =>      $gender,
-					'email'          =>      $email,
-					'weixinid'       =>      $weixinid,
-					'avatar_mediaid' =>      $avatar_mediaid,
-					'extattr'        =>      $extattr,
+					'userid'         =>      $data['userid'],
+					'name'           =>      $data['name'],
+					'department'     =>      $data['department'],
+					'position'       =>      $data['position'],
+					'mobile'         =>      $data['mobile'],
+					'gender'         =>      $data['gender'],
+					'email'          =>      $data['email'],
+					'weixinid'       =>      $data['weixinid'],
+					'avatar_mediaid' =>      $data['avatar_mediaid'],
+					'extattr'        =>      $data['extattr'],
 	            ];
 	    return $this->api( self::CONTACT_USER_UPDATE_URL, $param );
 	}
