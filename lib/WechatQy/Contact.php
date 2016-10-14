@@ -18,6 +18,7 @@ namespace Ppeerit\WeChat\WechatQy;
  *POSSIBILITY OF SUCH DAMAGE.
  */
 use Ppeerit\Wechat\Factory\DriverQy;
+use Ppeerit\Wechat\Exceptions\ContactParamInvalidException;
 
 /**
  * 微信企业号通讯录接口类
@@ -192,19 +193,39 @@ class Contact extends DriverQy
 	 */
 	public function userCreate( array$data = [] )
 	{
-
 		$param = [
 					'userid'         =>      $data['userid'],
 					'name'           =>      $data['name'],
 					'department'     =>      $data['department'],
-					'position'       =>      $data['position'],
-					'mobile'         =>      $data['mobile'],
-					'gender'         =>      $data['gender'],
-					'email'          =>      $data['email'],
-					'weixinid'       =>      $data['weixinid'],
-					'avatar_mediaid' =>      $data['avatar_mediaid'],
-					'extattr'        =>      $data['extattr'],
 	            ];
+
+	    if ( isset($data['position']) ) {
+	    	$param['position'] = $data['position'];
+	    }
+	    if ( isset($data['gender']) ) {
+	    	$param['gender'] = $data['gender'];
+	    }
+	    if ( isset($data['avatar_mediaid']) ) {
+	    	$param['avatar_mediaid'] = $data['avatar_mediaid'];
+	    }
+	    if ( isset($data['extattr']) ) {
+	    	$param['extattr'] = $data['extattr'];
+	    }
+
+	    if ( !isset($data['mobile']) || !isset($data['email']) || !isset($data['weixinid']) ) {
+	    	//抛出异常
+            throw new ContactParamInvalidException('mobile/weixinid/email三者不能同时为空');
+	    }
+
+	    if ( isset($data['mobile']) ) {
+	    	$param['mobile'] = $data['mobile'];
+	    }
+	    if ( isset($data['email']) ) {
+	    	$param['email'] = $data['email'];
+	    }
+	    if ( isset($data['weixinid']) ) {
+	    	$param['weixinid'] = $data['weixinid'];
+	    }
 	    return $this->api( self::CONTACT_USER_CREATE_URL, $param );
 	}
 
@@ -229,14 +250,35 @@ class Contact extends DriverQy
 					'userid'         =>      $data['userid'],
 					'name'           =>      $data['name'],
 					'department'     =>      $data['department'],
-					'position'       =>      $data['position'],
-					'mobile'         =>      $data['mobile'],
-					'gender'         =>      $data['gender'],
-					'email'          =>      $data['email'],
-					'weixinid'       =>      $data['weixinid'],
-					'avatar_mediaid' =>      $data['avatar_mediaid'],
-					'extattr'        =>      $data['extattr'],
 	            ];
+
+	    if ( isset($data['position']) ) {
+	    	$param['position'] = $data['position'];
+	    }
+	    if ( isset($data['gender']) ) {
+	    	$param['gender'] = $data['gender'];
+	    }
+	    if ( isset($data['avatar_mediaid']) ) {
+	    	$param['avatar_mediaid'] = $data['avatar_mediaid'];
+	    }
+	    if ( isset($data['extattr']) ) {
+	    	$param['extattr'] = $data['extattr'];
+	    }
+
+	    if ( !isset($data['mobile']) || !isset($data['email']) || !isset($data['weixinid']) ) {
+	    	//抛出异常
+            throw new ContactParamInvalidException('mobile/weixinid/email三者不能同时为空');
+	    }
+
+	    if ( isset($data['mobile']) ) {
+	    	$param['mobile'] = $data['mobile'];
+	    }
+	    if ( isset($data['email']) ) {
+	    	$param['email'] = $data['email'];
+	    }
+	    if ( isset($data['weixinid']) ) {
+	    	$param['weixinid'] = $data['weixinid'];
+	    }
 	    return $this->api( self::CONTACT_USER_UPDATE_URL, $param );
 	}
 
