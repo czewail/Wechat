@@ -6,18 +6,25 @@
 namespace Ppeerit\Wechat\Factory;
 
 use think\Cache;
+use Ppeerit\Wechat\Library\Http;
 use Ppeerit\Wechat\Exceptions\ParamErrorException;
 use Ppeerit\Wechat\Exceptions\AccessTokenInvalidException;
 use Ppeerit\Wechat\Exceptions\HttpInvalidException;
 
 class DriverQy
 {
-
+    /**
+     * 企业号缓存前缀
+     */
+    const TOKEN_PREFIX  = 'wechatqy_';
     /**
      * 微信企业号api根路径
      */
     const API_PREFIX = 'https://qyapi.weixin.qq.com/cgi-bin/';
-
+    /**
+     * 获取token的接口地址
+     */
+    const API_TOKEN_URL = 'gettoken';
     /**
      * 公众号标识
      * 自定义，用户区分多个公众号调用缓存时的标识，不可重复，否则会导致多个公众号数据错乱
@@ -86,10 +93,10 @@ class DriverQy
         //判断是否存在唯一标识
         if ($Identity) {
             //通过标识设置缓存
-            Cache::set($Identity, $access_token, 7200);
+            Cache::set( self::TOKEN_PREFIX . $Identity, $access_token, 7200 );
         }else{
             //默认标识设置缓存
-            Cache::set('access_token', $access_token, 7200);
+            Cache::set( self::TOKEN_PREFIX . 'wechatqy', $access_token, 7200 );
         }
     }
 
@@ -103,10 +110,10 @@ class DriverQy
         //判断是否存在唯一标识
         if ($Identity) {
             //通过标识获取
-            $token = Cache::get($Identity);
+            $token = Cache::get( self::TOKEN_PREFIX . $Identity );
         } else {
             //通过默认标识获取缓存
-            $token = Cache::get('access_token');
+            $token = Cache::get( self::TOKEN_PREFIX . 'wechatqy' );
         }
         //判断缓存是否存在
         if (is_array($token)) {
@@ -132,9 +139,9 @@ class DriverQy
             'corpsecret'    => $this->Secret
         );
         //组合token接口地址
-        $url = self::API_PREFIX . "gettoken";
+        $url = self::API_PREFIX . self::API_TOKEN_URL;
         //通过http方法从接口获取token
-        $token = self::http($url, $param);
+        $token = Http::http($url, $param);
         //将返回的接送、数据解码为数组
         $token = json_decode($token, true);
         //token返回成功
@@ -166,7 +173,7 @@ class DriverQy
      */
     protected function api($name, $data = '', $method = 'POST', $param = '', $json = true){
 
-        $params = array('access_token' => $this->accessToken);
+        $params = ['access_token' => $this->accessToken];
 
         if(!empty($param) && is_array($param)){
             $params = array_merge($params, $param);
@@ -181,54 +188,8 @@ class DriverQy
             $data = urldecode(json_encode($data));
         }
 
-        $data = self::http($url, $params, $data, $method);
+        $data = Http::http($url, $params, $data, $method);
 
         return json_decode($data, true);
-    }
-
-    /**
-     * 发送HTTP请求方法，目前只支持CURL发送请求
-     * @param  string $url    请求URL
-     * @param  array  $param  GET参数数组
-     * @param  array  $data   POST的数据，GET请求时该参数无效
-     * @param  string $method 请求方法GET/POST
-     * @param  string $ship   #参数
-     * @return array          响应数据
-     */
-    protected static function http($url, $param, $data = '', $method = 'GET', $ship = ''){
-      
-        $opts = array(
-            CURLOPT_TIMEOUT        => 30,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
-        );
-
-        /* 根据请求类型设置特定参数 */
-        $opts[CURLOPT_URL] = $url . '?' . http_build_query($param) . $ship;
-
-        if(strtoupper($method) == 'POST'){
-            $opts[CURLOPT_POST] = 1;
-            $opts[CURLOPT_POSTFIELDS] = $data;
-            
-            if(is_string($data)){ //发送JSON数据
-                $opts[CURLOPT_HTTPHEADER] = array(
-                    'Content-Type: application/json; charset=utf-8',  
-                    'Content-Length: ' . strlen($data),
-                );
-            }
-        }
-
-        /* 初始化并执行curl请求 */
-        $ch = curl_init();
-        curl_setopt_array($ch, $opts);
-        $data  = curl_exec($ch);
-        $error = curl_error($ch);
-        curl_close($ch);
-
-        //发生错误，抛出异常
-        if($error) throw new HttpInvalidException('请求发生错误：' . $error);
-
-        return  $data;
     }
 }
